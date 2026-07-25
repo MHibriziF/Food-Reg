@@ -1,0 +1,10 @@
+name: feature
+description: Generates a feature with clean architecture (data/domain/presentation)
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev.52 <0.2.0"
+vars:
+  feature_name:
+    type: string
+    description: Feature name in snake_case (e.g. user_profile)
+    prompt: "Feature name (snake_case)"

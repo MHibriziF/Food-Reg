@@ -1,0 +1,14 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "lib/services/dependencies/di.config.dart"
+    - "lib/core/config/config.g.dart"
+    - "bricks/**"
+
+linter:
+  rules:
+    avoid_print: false
+    prefer_single_quotes: true
