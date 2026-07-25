@@ -33,9 +33,6 @@ class DioFailure implements Exception {
         message = kGenericErrorMessage;
         break;
       case DioExceptionType.transformTimeout:
-      default:
-        message = kGenericErrorMessage;
-        break;
     }
   }
 
