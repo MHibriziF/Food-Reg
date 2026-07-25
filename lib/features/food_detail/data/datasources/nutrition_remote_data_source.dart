@@ -18,7 +18,7 @@ class NutritionRemoteDataSourceImpl implements NutritionRemoteDataSource {
   );
 
   late final GenerativeModel _model = GenerativeModel(
-    model: 'gemini-2.0-flash',
+    model: 'gemini-flash-latest',
     apiKey: Config.geminiApiKey,
     systemInstruction: Content.system(GeminiPrompts.nutritionSystemInstruction),
     generationConfig: GenerationConfig(
