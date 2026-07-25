@@ -110,3 +110,11 @@ class EmptyFailure extends Failure {}
 class CacheFailure extends Failure {
   CacheFailure({super.message}) : super(title: 'Cache Failure');
 }
+
+class PermissionFailure extends Failure {
+  PermissionFailure({super.message}) : super(title: 'Permission Failure');
+}
+
+class CameraFailure extends Failure {
+  CameraFailure({super.message}) : super(title: 'Camera Failure');
+}

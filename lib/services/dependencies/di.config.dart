@@ -12,13 +12,27 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/capture/data/datasources/_datasources.dart' as _i242;
+import '../../features/capture/data/repositories/_repositories.dart' as _i1056;
+import '../../features/capture/domain/repositories/_repositories.dart' as _i407;
+import '../../features/capture/presentation/cubit/_cubits.dart' as _i967;
+
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    _i526.GetItHelper(this, environment, environmentFilter);
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    gh.lazySingleton<_i242.CaptureLocalDataSource>(
+      () => _i242.CaptureLocalDataSourceImpl(),
+    );
+    gh.lazySingleton<_i407.CaptureRepository>(
+      () => _i1056.CaptureRepositoryImpl(gh<_i242.CaptureLocalDataSource>()),
+    );
+    gh.factory<_i967.CaptureCubit>(
+      () => _i967.CaptureCubit(gh<_i407.CaptureRepository>()),
+    );
     return this;
   }
 }

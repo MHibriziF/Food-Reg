@@ -8,6 +8,12 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Food Reg</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Food Reg needs camera access to take photos of food for identification.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Food Reg needs photo library access so you can pick a food photo to identify.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Food Reg needs photo library access to save cropped food photos.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
