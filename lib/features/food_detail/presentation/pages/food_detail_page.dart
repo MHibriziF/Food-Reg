@@ -31,9 +31,7 @@ class _FoodDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final confidencePercent = (args.result.confidence * 100).toStringAsFixed(
-      1,
-    );
+    final confidencePercent = (args.result.confidence * 100).toStringAsFixed(1);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Result')),

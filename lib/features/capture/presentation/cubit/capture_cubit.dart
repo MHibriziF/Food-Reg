@@ -45,7 +45,10 @@ class CaptureCubit extends Cubit<CaptureState> {
 
   Future<void> _cropAndEmit(File image) async {
     final cropResult = await _repository.cropImage(image);
-    final finalImage = cropResult.fold((_) => image, (cropped) => cropped ?? image);
+    final finalImage = cropResult.fold(
+      (_) => image,
+      (cropped) => cropped ?? image,
+    );
     emit(state.copyWith(status: CaptureStatus.ready, image: finalImage));
   }
 

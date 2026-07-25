@@ -13,10 +13,7 @@ class SecureKeyService {
       return base64Decode(existingKey);
     }
     final key = Hive.generateSecureKey();
-    await _storage.write(
-      key: _hiveEncryptionKeyName,
-      value: base64Encode(key),
-    );
+    await _storage.write(key: _hiveEncryptionKeyName, value: base64Encode(key));
     return key;
   }
 }

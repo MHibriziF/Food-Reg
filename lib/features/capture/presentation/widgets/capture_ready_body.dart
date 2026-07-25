@@ -74,8 +74,10 @@ class _AnalyzeButtonState extends State<_AnalyzeButton> {
     setState(() => _isAnalyzing = false);
 
     result.fold(
-      (failure) =>
-          showErrorSnackBar(context, failure.message ?? 'Something went wrong.'),
+      (failure) => showErrorSnackBar(
+        context,
+        failure.message ?? 'Something went wrong.',
+      ),
       (classification) => context.push(
         '/detail',
         extra: FoodDetailArgs(image: widget.image, result: classification),

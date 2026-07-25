@@ -56,11 +56,7 @@ class SectionSkeleton extends StatelessWidget {
 }
 
 class SkeletonBar extends StatelessWidget {
-  const SkeletonBar({
-    required this.width,
-    this.height = 12,
-    super.key,
-  });
+  const SkeletonBar({required this.width, this.height = 12, super.key});
 
   final double width;
   final double height;

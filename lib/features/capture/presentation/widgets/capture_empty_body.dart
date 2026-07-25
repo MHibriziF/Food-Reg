@@ -40,17 +40,15 @@ class CaptureEmptyBody extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             FilledButton.icon(
-              onPressed: () => context.read<CaptureCubit>().pickImage(
-                CaptureSource.camera,
-              ),
+              onPressed: () =>
+                  context.read<CaptureCubit>().pickImage(CaptureSource.camera),
               icon: const Icon(Icons.photo_camera),
               label: const Text('Take Photo'),
             ),
             const SizedBox(height: 12),
             OutlinedButton.icon(
-              onPressed: () => context.read<CaptureCubit>().pickImage(
-                CaptureSource.gallery,
-              ),
+              onPressed: () =>
+                  context.read<CaptureCubit>().pickImage(CaptureSource.gallery),
               icon: const Icon(Icons.photo_library),
               label: const Text('Choose from Gallery'),
             ),

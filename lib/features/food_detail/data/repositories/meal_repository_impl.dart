@@ -7,7 +7,6 @@ class MealRepositoryImpl implements MealRepository {
   MealRepositoryImpl(this._remote);
 
   @override
-  Future<Either<Failure, MealInfo?>> searchByName(String name) => apiCall(
-    _remote.searchByName(name).then((model) => model?.toEntity()),
-  );
+  Future<Either<Failure, MealInfo?>> searchByName(String name) =>
+      apiCall(_remote.searchByName(name).then((model) => model?.toEntity()));
 }

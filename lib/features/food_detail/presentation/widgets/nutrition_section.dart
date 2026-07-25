@@ -17,8 +17,7 @@ class NutritionSection extends StatelessWidget {
       icon: Icons.local_fire_department_rounded,
       child: switch (status) {
         SectionStatus.loading => const _NutritionSkeleton(),
-        SectionStatus.failure ||
-        SectionStatus.empty => const Text(
+        SectionStatus.failure || SectionStatus.empty => const Text(
           "Nutrition info isn't available right now.",
         ),
         SectionStatus.success => _NutritionGrid(nutrition: nutrition!),

@@ -1,9 +1,6 @@
 part of '_repositories.dart';
 
-const _kPermissionDeniedCodes = {
-  'camera_access_denied',
-  'photo_access_denied',
-};
+const _kPermissionDeniedCodes = {'camera_access_denied', 'photo_access_denied'};
 
 @LazySingleton(as: CaptureRepository)
 class CaptureRepositoryImpl implements CaptureRepository {

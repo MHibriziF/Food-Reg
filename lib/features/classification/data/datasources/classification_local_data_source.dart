@@ -5,7 +5,8 @@ abstract class ClassificationLocalDataSource {
 }
 
 @LazySingleton(as: ClassificationLocalDataSource)
-class ClassificationLocalDataSourceImpl implements ClassificationLocalDataSource {
+class ClassificationLocalDataSourceImpl
+    implements ClassificationLocalDataSource {
   static const _firebaseModelName = 'food-classifier';
   static const _modelAsset = 'assets/model/food_classifier.tflite';
   static const _labelsAsset = 'assets/model/labels.txt';

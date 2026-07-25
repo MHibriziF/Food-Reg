@@ -19,7 +19,9 @@ class FoodDetailCubit extends Cubit<FoodDetailState> {
       (failure) => emit(state.copyWith(mealStatus: SectionStatus.failure)),
       (meal) => emit(
         state.copyWith(
-          mealStatus: meal == null ? SectionStatus.empty : SectionStatus.success,
+          mealStatus: meal == null
+              ? SectionStatus.empty
+              : SectionStatus.success,
           meal: meal,
         ),
       ),
@@ -29,8 +31,7 @@ class FoodDetailCubit extends Cubit<FoodDetailState> {
   Future<void> _loadNutrition(String foodName) async {
     final result = await _nutritionRepository.getNutrition(foodName);
     result.fold(
-      (failure) =>
-          emit(state.copyWith(nutritionStatus: SectionStatus.failure)),
+      (failure) => emit(state.copyWith(nutritionStatus: SectionStatus.failure)),
       (nutrition) => emit(
         state.copyWith(
           nutritionStatus: SectionStatus.success,
