@@ -12,7 +12,7 @@ class MealSection extends StatelessWidget {
       title: 'Recipe',
       icon: Icons.restaurant_menu_rounded,
       child: switch (status) {
-        SectionStatus.loading => const _SectionLoading(),
+        SectionStatus.loading => const _MealSkeleton(),
         SectionStatus.failure => const Text(
           "Couldn't load recipe info right now.",
         ),
@@ -21,6 +21,38 @@ class MealSection extends StatelessWidget {
         ),
         SectionStatus.success => _MealContent(meal: meal!),
       },
+    );
+  }
+}
+
+class _MealSkeleton extends StatelessWidget {
+  const _MealSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    return SectionSkeleton(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 160,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(height: 12),
+          const SkeletonBar(width: 140, height: 16),
+          const SizedBox(height: 16),
+          const SkeletonBar(width: 90),
+          const SizedBox(height: 8),
+          const SkeletonBar(width: double.infinity),
+          const SizedBox(height: 6),
+          const SkeletonBar(width: double.infinity),
+          const SizedBox(height: 6),
+          const SkeletonBar(width: 180),
+        ],
+      ),
     );
   }
 }

@@ -16,13 +16,39 @@ class NutritionSection extends StatelessWidget {
       title: 'Nutrition (estimated)',
       icon: Icons.local_fire_department_rounded,
       child: switch (status) {
-        SectionStatus.loading => const _SectionLoading(),
+        SectionStatus.loading => const _NutritionSkeleton(),
         SectionStatus.failure ||
         SectionStatus.empty => const Text(
           "Nutrition info isn't available right now.",
         ),
         SectionStatus.success => _NutritionGrid(nutrition: nutrition!),
       },
+    );
+  }
+}
+
+class _NutritionSkeleton extends StatelessWidget {
+  const _NutritionSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    return SectionSkeleton(
+      child: Wrap(
+        spacing: 10,
+        runSpacing: 10,
+        children: List.generate(
+          5,
+          (_) => Container(
+            width: 84,
+            height: 48,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -39,19 +39,40 @@ class SectionCard extends StatelessWidget {
   }
 }
 
-class _SectionLoading extends StatelessWidget {
-  const _SectionLoading();
+/// Wraps a skeleton layout (built from [SkeletonBar]s) in a shimmer sweep.
+class SectionSkeleton extends StatelessWidget {
+  const SectionSkeleton({required this.child, super.key});
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 12),
-        child: SizedBox(
-          width: 20,
-          height: 20,
-          child: CircularProgressIndicator(strokeWidth: 2),
-        ),
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: child,
+    );
+  }
+}
+
+class SkeletonBar extends StatelessWidget {
+  const SkeletonBar({
+    required this.width,
+    this.height = 12,
+    super.key,
+  });
+
+  final double width;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade300,
+        borderRadius: BorderRadius.circular(6),
       ),
     );
   }
