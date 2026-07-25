@@ -3,8 +3,10 @@ part of '_cubits.dart';
 @injectable
 class CaptureCubit extends Cubit<CaptureState> {
   final CaptureRepository _repository;
+  final ClassificationRepository _classificationRepository;
 
-  CaptureCubit(this._repository) : super(CaptureState.initial());
+  CaptureCubit(this._repository, this._classificationRepository)
+    : super(CaptureState.initial());
 
   Future<void> pickImage(CaptureSource source) async {
     emit(state.copyWith(status: CaptureStatus.loading, errorMessage: null));
@@ -47,5 +49,13 @@ class CaptureCubit extends Cubit<CaptureState> {
     emit(state.copyWith(status: CaptureStatus.ready, image: finalImage));
   }
 
-  Future<void> retake() => pickImage(CaptureSource.camera);
+  Future<Either<Failure, ClassificationResult>> analyze() {
+    final image = state.image;
+    if (image == null) {
+      return Future.value(
+        Left(ArgumentFailure(message: 'No image to analyze.')),
+      );
+    }
+    return _classificationRepository.classify(image);
+  }
 }

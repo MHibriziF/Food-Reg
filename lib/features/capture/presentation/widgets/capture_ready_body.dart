@@ -29,7 +29,7 @@ class CaptureReadyBody extends StatelessWidget {
             children: [
               Expanded(
                 child: OutlinedButton.icon(
-                  onPressed: () => context.read<CaptureCubit>().retake(),
+                  onPressed: () => showRetakeSheet(context),
                   icon: const Icon(Icons.refresh),
                   label: const Text('Retake'),
                 ),
@@ -47,16 +47,54 @@ class CaptureReadyBody extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          child: FilledButton.icon(
-            onPressed: () => showInfoSnackBar(
-              context,
-              'Food identification is coming in the next step.',
-            ),
-            icon: const Icon(Icons.search),
-            label: const Text('Analyze'),
-          ),
+          child: _AnalyzeButton(image: image),
         ),
       ],
+    );
+  }
+}
+
+class _AnalyzeButton extends StatefulWidget {
+  const _AnalyzeButton({required this.image});
+
+  final File image;
+
+  @override
+  State<_AnalyzeButton> createState() => _AnalyzeButtonState();
+}
+
+class _AnalyzeButtonState extends State<_AnalyzeButton> {
+  bool _isAnalyzing = false;
+
+  Future<void> _analyze() async {
+    setState(() => _isAnalyzing = true);
+    final cubit = context.read<CaptureCubit>();
+    final result = await cubit.analyze();
+    if (!mounted) return;
+    setState(() => _isAnalyzing = false);
+
+    result.fold(
+      (failure) =>
+          showErrorSnackBar(context, failure.message ?? 'Something went wrong.'),
+      (classification) => context.push(
+        '/detail',
+        extra: FoodDetailArgs(image: widget.image, result: classification),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton.icon(
+      onPressed: _isAnalyzing ? null : _analyze,
+      icon: _isAnalyzing
+          ? const SizedBox(
+              width: 18,
+              height: 18,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+          : const Icon(Icons.search),
+      label: Text(_isAnalyzing ? 'Analyzing…' : 'Analyze'),
     );
   }
 }

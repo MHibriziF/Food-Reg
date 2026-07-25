@@ -16,6 +16,12 @@ import '../../features/capture/data/datasources/_datasources.dart' as _i242;
 import '../../features/capture/data/repositories/_repositories.dart' as _i1056;
 import '../../features/capture/domain/repositories/_repositories.dart' as _i407;
 import '../../features/capture/presentation/cubit/_cubits.dart' as _i967;
+import '../../features/classification/data/datasources/_datasources.dart'
+    as _i367;
+import '../../features/classification/data/repositories/_repositories.dart'
+    as _i221;
+import '../../features/classification/domain/repositories/_repositories.dart'
+    as _i147;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -27,11 +33,22 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i242.CaptureLocalDataSource>(
       () => _i242.CaptureLocalDataSourceImpl(),
     );
+    gh.lazySingleton<_i367.ClassificationLocalDataSource>(
+      () => _i367.ClassificationLocalDataSourceImpl(),
+    );
     gh.lazySingleton<_i407.CaptureRepository>(
       () => _i1056.CaptureRepositoryImpl(gh<_i242.CaptureLocalDataSource>()),
     );
+    gh.lazySingleton<_i147.ClassificationRepository>(
+      () => _i221.ClassificationRepositoryImpl(
+        gh<_i367.ClassificationLocalDataSource>(),
+      ),
+    );
     gh.factory<_i967.CaptureCubit>(
-      () => _i967.CaptureCubit(gh<_i407.CaptureRepository>()),
+      () => _i967.CaptureCubit(
+        gh<_i407.CaptureRepository>(),
+        gh<_i147.ClassificationRepository>(),
+      ),
     );
     return this;
   }
