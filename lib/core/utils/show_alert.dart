@@ -18,7 +18,7 @@ const _appAlertStyles = {
     icon: Icons.check_rounded,
   ),
   AppAlertType.error: _AppAlertStyle(
-    accent: BaseColors.red,
+    accent: BaseColors.error,
     icon: Icons.close_rounded,
   ),
 };
