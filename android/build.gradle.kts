@@ -25,10 +25,8 @@ subprojects {
 // every subproject's Java/Kotlin compile tasks to the same target as the
 // app module (17) so a plugin's stale setting can't drift out of sync.
 subprojects {
-    plugins.withId("org.jetbrains.kotlin.android") {
-        extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension> {
-            jvmToolchain(17)
-        }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
     tasks.withType<JavaCompile>().configureEach {
         sourceCompatibility = JavaVersion.VERSION_17.toString()
