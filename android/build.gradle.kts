@@ -15,9 +15,6 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
-subprojects {
-    project.evaluationDependsOn(":app")
-}
 
 // Some plugins (e.g. tflite_flutter) pin their own Java target (11) while
 // the Kotlin compiler infers a different one from the toolchain, which
@@ -28,10 +25,25 @@ subprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
-    tasks.withType<JavaCompile>().configureEach {
-        sourceCompatibility = JavaVersion.VERSION_17.toString()
-        targetCompatibility = JavaVersion.VERSION_17.toString()
+    // AGP re-derives JavaCompile's source/targetCompatibility from the
+    // android.compileOptions extension after the subproject's own
+    // build.gradle runs, so overriding the JavaCompile tasks directly (as
+    // above for Kotlin) gets clobbered. Override compileOptions itself,
+    // once the subproject's android extension exists, so ours is the value
+    // AGP reads. Uses withGroovyBuilder instead of AGP's extension types
+    // directly since those types/generics have shifted across AGP versions.
+    afterEvaluate {
+        extensions.findByName("android")?.withGroovyBuilder {
+            getProperty("compileOptions").withGroovyBuilder {
+                setProperty("sourceCompatibility", JavaVersion.VERSION_17)
+                setProperty("targetCompatibility", JavaVersion.VERSION_17)
+            }
+        }
     }
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")
 }
 
 tasks.register<Delete>("clean") {
