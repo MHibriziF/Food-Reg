@@ -15,10 +15,10 @@ class CaptureReadyBody extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Image.file(
-                image,
-                fit: BoxFit.cover,
+              child: Container(
                 width: double.infinity,
+                color: BaseColors.primary.withValues(alpha: 0.05),
+                child: Image.file(image, fit: BoxFit.contain),
               ),
             ),
           ),

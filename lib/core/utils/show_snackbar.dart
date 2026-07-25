@@ -20,14 +20,19 @@ SnackBar _customSnackbar({
           Expanded(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 14, 24, 14),
-              child: Text(msg, style: FontTheme.captionMedium, maxLines: 1),
+              child: Text(
+                msg,
+                style: FontTheme.captionMedium,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
         ],
       ),
     ),
     elevation: 3,
-    duration: const Duration(seconds: 1),
+    duration: const Duration(seconds: 3),
     behavior: SnackBarBehavior.floating,
     margin: const EdgeInsets.fromLTRB(42, 0, 42, 32),
     padding: EdgeInsets.zero,

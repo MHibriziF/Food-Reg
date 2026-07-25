@@ -20,7 +20,6 @@ class CaptureCubit extends Cubit<CaptureState> {
       ),
       (picked) async {
         if (picked == null) {
-          // User backed out of the picker — fall back to whatever we had.
           emit(
             state.copyWith(
               status: state.image != null
@@ -48,7 +47,5 @@ class CaptureCubit extends Cubit<CaptureState> {
     emit(state.copyWith(status: CaptureStatus.ready, image: finalImage));
   }
 
-  void retake() {
-    emit(CaptureState.initial());
-  }
+  Future<void> retake() => pickImage(CaptureSource.camera);
 }
